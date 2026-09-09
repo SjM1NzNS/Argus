@@ -343,19 +343,6 @@ Excluded:
 See `PRIVACY.md` for the release threat model and pre-push checklist.
 See `RELEASE-AUDIT.md` for the checks and observed results for this snapshot.
 
-## Updating this backup
-
-Do not copy a live Argus home or vault directly into Git. Build a fresh sanitized export, review the manifest, then run all privacy gates. At minimum:
-
-```bash
-python3 scripts/verify_public_release.py .
-gitleaks detect --source . --no-git --redact --exit-code 1
-trufflehog filesystem . --no-update --fail --only-verified
-python3 scripts/update_checksums.py
-```
-
-Review `git diff --cached` before every push. A clean scanner result reduces risk; it does not prove that prose contains no confidential context.
-
 ## Status and limitations
 
 - This is a reusable framework snapshot, not a turnkey autonomous vulnerability scanner.
@@ -363,7 +350,6 @@ Review `git diff --cached` before every push. A clean scanner result reduces ris
 - Some scripts require optional local tools or browser dependencies.
 - Playbooks are decision support, not permission to test an asset.
 - Public summaries may become stale; verify techniques against current primary sources and program rules.
-- No license has been selected in this backup. Add an explicit license before publication if you intend to grant reuse rights beyond GitHub's default terms.
 
 ## Acknowledgements
 
