@@ -1,0 +1,42 @@
+schema_version: 1
+candidate_id: "<PROGRAM-ID-NNN>"
+title: "<exact primitive and affected component>"
+program: "<program>"
+asset: "<exact in-scope asset>"
+state: source_mapped # source_mapped | candidate | validated | reportable | blocked | disproved | out_of_scope | accepted_behavior | duplicate_risk
+updated_utc: "<ISO-8601>"
+actor:
+  role: "<unauthenticated | standard owned account | other>"
+  prerequisites: []
+source:
+  provenance: "<URL or commit:path>"
+  sha256: "<digest>"
+  locations: []
+attacker_path:
+  setup: "<owned/synthetic setup>"
+  action: "<exact safe request or local invocation>"
+  observed_result: "<fact>"
+  demonstrated_capability: "<capability, not severity>"
+impact:
+  demonstrated: []
+  conditional: []
+  not_claimed: []
+controls:
+  positive: []
+  negative: []
+  random_path_or_catch_all: []
+  repeatability: "<runs and result>"
+scope_and_policy:
+  in_scope_evidence: "<scope source>"
+  accepted_impact_match: "<program policy mapping or unknown>"
+  prohibited_actions_avoided: []
+duplicate_review:
+  public_searches: []
+  related_internal_reports: []
+  root_cause_overlap: "<none | partial | same | unresolved>"
+disposition:
+  reason: "<why current state is correct>"
+  missing_proof: []
+  next_safe_action: "<one action or none>"
+  disproving_evidence: []
+evidence_refs: []

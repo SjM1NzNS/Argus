@@ -1,0 +1,66 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.mobileprovision
+
+# Python/tool state
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Obsidian local state
+**/.obsidian/
+**/.trash/
+
+# Sensitive research artifacts
+**/*.har
+**/*.http
+**/*.response
+**/*.request
+**/*.pcap
+**/*.pcapng
+**/*.sqlite*
+**/*.db
+**/*.log
+**/tool-output/
+**/Raw Evidence/
+**/Targets/
+**/Reports/
+**/agent-logs/
+**/browser-profile/
+**/Burp*/
+
+# Numbered Argus runtime/private zones. Keep only tracked sentinel READMEs.
+vault/03 - Targets/*
+!vault/03 - Targets/README.md
+vault/04 - Scope Contracts/
+vault/05 - Hypotheses/*
+!vault/05 - Hypotheses/README.md
+vault/05 - Agent Outputs/
+vault/09 - Raw Evidence/*
+!vault/09 - Raw Evidence/README.md
+vault/10 - Reports/*
+!vault/10 - Reports/README.md
+vault/10 - Tool Output/
+vault/12 - Logs/
+
+# Generated runtime learning state
+vault/01 - Learning/Inbox/
+vault/01 - Learning/Source Triage/
+vault/01 - Learning/Skill Patch Proposals/
+vault/12 - Logs/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

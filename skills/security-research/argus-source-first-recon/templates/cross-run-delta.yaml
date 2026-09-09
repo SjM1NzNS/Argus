@@ -1,0 +1,38 @@
+schema_version: 1
+comparison_id: "<DELTA-YYYYMMDD-NNN>"
+asset: "<exact scoped asset>"
+old_run:
+  id: "<run-id>"
+  captured_utc: "<ISO-8601>"
+  methodology_version: "<version>"
+  parser_version: "<version>"
+  scope_digest: "<sha256>"
+  evidence_root: "<path>"
+new_run:
+  id: "<run-id>"
+  captured_utc: "<ISO-8601>"
+  methodology_version: "<version>"
+  parser_version: "<version>"
+  scope_digest: "<sha256>"
+  evidence_root: "<path>"
+comparability:
+  equivalent_scope: false
+  equivalent_methodology: false
+  equivalent_controls: false
+  equivalent_coverage: false
+  limitations: []
+observations:
+  - identity: "<normalized asset|endpoint|method|control tuple>"
+    category: newly_observed # newly_observed | newly_introduced | no_longer_observed | fixed | persistent | changed | reappeared | not_tested | test_failed | not_observed
+    old_state: "<state>"
+    new_state: "<state>"
+    first_seen_utc: "<ISO-8601>"
+    last_seen_utc: "<ISO-8601>"
+    old_evidence_refs: []
+    new_evidence_refs: []
+    causal_claim_supported: false
+    notes: "<do not equate 403/disappearance with a patch>"
+summary:
+  reportable_changes: []
+  retest_required: []
+  no_causal_claims: []

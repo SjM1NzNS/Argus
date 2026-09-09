@@ -1,0 +1,33 @@
+---
+type: learning-source-summary
+compiled_at: 2026-06-30T14:09:49.085964+00:00
+source_quality: 8
+classification: severity rule
+vulnerability_class: AI / LLM Security
+---
+
+# Cybersecurity Solutions - PortSwigger.
+
+- URL: `https://portswigger.net/solutions`
+- Source group: `backfill_deep_content`
+- Content chars: `4880`
+- Classification: **severity rule**
+- Vulnerability class: **AI / LLM Security**
+
+## Source summary
+
+- Burp Suite DAST's scalable scanning model can schedule scans across your entire portfolio - on a totally flexible basis.
+- Burp Scanner Burp Suite's web vulnerability scanner Product comparison What's the difference between Pro and DAST?
+- The enterprise-enabled web vulnerability scanner.
+
+## Extracted methodology
+
+- Affected surface: Web/API/application surface
+- Preconditions to verify: identify actor/tenant/object boundary, required role/session state, and whether the vulnerable action is read, write, delete, trigger, or value transfer.
+- Minimal test method: reproduce with an owned/synthetic object first, then compare allowed vs disallowed actor/object pairs; preserve request deltas and response evidence.
+- Evidence requirements: exact request/response pair, actor/object ownership proof, unauthorized impact, and negative controls showing the boundary should have blocked the action.
+- False-positive gates: index/config/tool output is not proof; synthetic IDs only map behavior; severity needs demonstrated business/security impact.
+
+## Compiler decision
+
+- Use this as a patch proposal input, not a mature playbook edit, unless paired with eval coverage and changelog review.

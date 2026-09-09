@@ -1,0 +1,758 @@
+# Argus canonical learning-source registry.
+# Registry schema v2 makes cadence, acquisition, trust, and promotion semantics configuration-driven.
+# Categorical trust never bypasses review; ingestion always produces proposal-only material.
+
+registry:
+  schema_version: 2
+  description: Categorical source policy for staged Argus security learning; ingestion never implies trust.
+  promotion_status_default: proposal_only
+  cadence_semantics:
+    daily: bounded incremental monitoring
+    weekly: complete reconciliation of daily and weekly roots through static and browser lanes
+    periodic: maintenance-triggered refresh only
+    on_demand: explicit targeted backfill only
+  knowledge_types:
+  - vulnerability_pattern
+  - validation_technique
+  - architecture_trust_boundary
+  - false_positive_condition
+  - evidence_requirement
+  - reportability_criterion
+  - hunting_methodology
+  - tooling_procedure
+source_group_policies:
+  web2_core_theory:
+    role: foundational_reference
+    domain: web2
+    acquisition: deep_link_discovery
+    cadence: on_demand
+    trust: authority
+    promotion_policy: review_required
+    original_source_required: false
+    independent_corroboration: conditional
+    refetch_interval_days: 180
+    expected_content_type: documentation
+    deep_link_limit: 75
+  web2_topic_indexes:
+    role: discovery_index
+    domain: web2
+    acquisition: deep_link_discovery
+    cadence: weekly
+    trust: discovery_only
+    promotion_policy: original_source_required
+    original_source_required: true
+    independent_corroboration: required
+    refetch_interval_days: 7
+    expected_content_type: index
+    deep_link_limit: 10
+  web2_continuous_monitoring:
+    role: practitioner_commentary
+    domain: web2
+    acquisition: deep_link_discovery
+    cadence: weekly
+    trust: curated_secondary
+    promotion_policy: corroboration_required
+    original_source_required: false
+    independent_corroboration: required
+    refetch_interval_days: 7
+    expected_content_type: article
+    deep_link_limit: 5
+  web3_core_theory:
+    role: foundational_reference
+    domain: web3
+    acquisition: deep_link_discovery
+    cadence: on_demand
+    trust: authority
+    promotion_policy: review_required
+    original_source_required: false
+    independent_corroboration: conditional
+    refetch_interval_days: 180
+    expected_content_type: documentation
+    deep_link_limit: 75
+  web3_continuous_monitoring:
+    role: report_repository
+    domain: web3
+    acquisition: deep_link_discovery
+    cadence: weekly
+    trust: curated_secondary
+    promotion_policy: corroboration_required
+    original_source_required: false
+    independent_corroboration: conditional
+    refetch_interval_days: 7
+    expected_content_type: report_or_article
+    deep_link_limit: 5
+  web2_recon_and_hunting_sources:
+    role: watchlist
+    domain: web2
+    acquisition: single_page
+    cadence: on_demand
+    trust: contextual
+    promotion_policy: proposals_only
+    original_source_required: false
+    independent_corroboration: required
+    refetch_interval_days: 180
+    expected_content_type: methodology_or_historical_source
+    deep_link_limit: 0
+  wordpress_official_security_intelligence:
+    role: authority
+    domain: platform_specific
+    acquisition: feed
+    cadence: daily
+    trust: primary
+    promotion_policy: review_required
+    original_source_required: false
+    independent_corroboration: conditional
+    refetch_interval_days: 1
+    expected_content_type: advisory_or_release
+    deep_link_limit: 8
+web2_core_theory:
+- name: HackTricks
+  url: https://hacktricks.wiki/en/index.html
+  type: knowledge_base
+  priority: high
+  cadence: on_demand
+  id: hacktricks
+  role: foundational_reference
+  trust: curated_secondary
+  promotion_policy: corroboration_required
+  independent_corroboration: required
+  refetch_interval_days: 180
+- name: PortSwigger Web Security Academy - All Topics
+  url: https://portswigger.net/web-security/all-topics
+  type: academy
+  priority: high
+  cadence: on_demand
+  id: portswigger-web-security-academy-all-topics
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: OWASP GitHub
+  url: https://github.com/owasp
+  type: official_org_repository_index
+  priority: high
+  cadence: on_demand
+  id: owasp-github
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: repository
+  refetch_interval_days: 180
+- name: OWASP WSTG
+  url: https://github.com/OWASP/wstg
+  type: official_testing_guide
+  priority: high
+  cadence: on_demand
+  id: owasp-wstg
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: OWASP ASVS
+  url: https://github.com/OWASP/ASVS
+  type: official_standard
+  priority: high
+  cadence: on_demand
+  id: owasp-asvs
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: OWASP API Security
+  url: https://owasp.org/www-project-api-security/
+  type: official_standard
+  priority: high
+  cadence: on_demand
+  id: owasp-api-security
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: OWASP Cheat Sheet Series
+  url: https://github.com/OWASP/CheatSheetSeries
+  type: official_cheat_sheets
+  priority: high
+  cadence: on_demand
+  id: owasp-cheat-sheet-series
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: Arcanum Security Arc PI Taxonomy
+  url: https://arcanum-sec.github.io/arc_pi_taxonomy/
+  type: ai_prompt_injection_taxonomy
+  priority: high
+  cadence: periodic
+  handling: single_page_content
+  notes: Browser/static triage shows the taxonomy is a long single page (~59k chars) with few links; compile the root content
+    directly instead of judging by link yield.
+  id: arcanum-security-arc-pi-taxonomy
+  role: foundational_reference
+  trust: curated_secondary
+  promotion_policy: corroboration_required
+  independent_corroboration: required
+  acquisition: single_page
+  refetch_interval_days: 90
+web2_topic_indexes:
+- name: AppSec.fyi Root Topic Index
+  url: https://appsec.fyi
+  type: topic_index
+  priority: high
+  handling: discover_internal_topic_pages
+  notes: Use root page to discover vulnerability-specific pages such as IDOR, XSS, SSRF, SQLi, CSRF, GraphQL, AuthZ, API Sec,
+    Secrets, JWT, SSTI, Burp, Recon, Fuzzing, Mobile, Supply Chain, and related topic pages.
+  id: appsec-fyi-root-topic-index
+  cadence: weekly
+  refetch_interval_days: 7
+- name: AppSec.fyi IDOR Resources
+  url: https://appsec.fyi/idor.html
+  type: topic_page
+  topic: IDOR / Access Control
+  priority: high
+  handling: extract_linked_resources_as_learning_candidates
+  id: appsec-fyi-idor-resources
+  cadence: weekly
+  refetch_interval_days: 7
+- name: AppSec.fyi XSS Resources
+  url: https://appsec.fyi/xss.html
+  type: topic_page
+  topic: XSS
+  priority: high
+  handling: extract_linked_resources_as_learning_candidates
+  id: appsec-fyi-xss-resources
+  cadence: weekly
+  refetch_interval_days: 7
+appsec_fyi_discovery_rule:
+  root_url: https://appsec.fyi
+  include_internal_links_matching:
+  - https://appsec.fyi/*.html
+  exclude:
+  - https://appsec.fyi/index.html
+  - https://appsec.fyi/glossary*
+  - https://appsec.fyi/timeline*
+  - https://appsec.fyi/sources*
+  - https://appsec.fyi/tools*
+  - https://appsec.fyi/submit*
+  max_topic_pages_per_run: 10
+  max_linked_resources_per_topic_per_run: 25
+  notes: Process topic pages gradually to avoid creating a noisy note dump.
+web2_continuous_monitoring:
+- name: Bug Bounty Daily
+  url: https://bugbountydaily.com
+  type: blog_feed
+  priority: high
+  handling: daily_deep_content
+  id: bug-bounty-daily
+  cadence: daily
+  role: discovery_index
+  trust: discovery_only
+  promotion_policy: original_source_required
+  independent_corroboration: required
+  original_source_required: true
+  domain: cross_domain
+  acquisition: feed
+  refetch_interval_days: 1
+- name: Critical Thinking Podcast Notes
+  url: https://ctpod.remmy9.xyz
+  type: podcast_notes
+  priority: medium
+  id: critical-thinking-podcast-notes
+  cadence: weekly
+  refetch_interval_days: 7
+- name: Intigriti Hacking Tools Blog
+  url: https://www.intigriti.com/researchers/blog/hacking-tools
+  type: researcher_blog
+  priority: medium
+  id: intigriti-hacking-tools-blog
+  cadence: weekly
+  refetch_interval_days: 7
+- name: YesWeHack Learn Bug Bounty
+  url: https://www.yeswehack.com/blog/learn-bug-bounty
+  type: researcher_blog
+  priority: medium
+  id: yeswehack-learn-bug-bounty
+  cadence: weekly
+  refetch_interval_days: 7
+- name: HackerOne Hacktivity Disclosed Latest
+  url: https://hackerone.com/hacktivity/overview?queryString=disclosed%3Atrue&sortField=latest_disclosable_activity_at&sortDirection=DESC&pageIndex=0
+  type: disclosed_reports
+  priority: high
+  handling: browser_dom_required
+  notes: Browser-rendered page exposes report links under /reports/<id>; static ingest marks manual_review_required.
+  id: hackerone-hacktivity-disclosed-latest
+  cadence: weekly
+  role: report_repository
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: Google Project Zero
+  url: https://projectzero.google
+  type: research_blog
+  priority: high
+  id: google-project-zero
+  cadence: daily
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  domain: cross_domain
+  refetch_interval_days: 3
+- name: PortSwigger Research
+  url: https://portswigger.net/research
+  type: research_blog
+  priority: high
+  id: portswigger-research
+  cadence: daily
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 3
+- name: Embrace The Red Blog
+  url: https://embracethered.com/blog/index.html
+  type: ai_security_blog
+  priority: medium
+  handling: daily_deep_content
+  id: embrace-the-red-blog
+  cadence: daily
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  domain: ai_security
+  refetch_interval_days: 3
+- name: Simon Willison Blog
+  url: https://simonwillison.net
+  type: ai_security_blog
+  priority: medium
+  handling: daily_deep_content
+  id: simon-willison-blog
+  cadence: daily
+  role: practitioner_commentary
+  trust: curated_secondary
+  promotion_policy: corroboration_required
+  independent_corroboration: required
+  domain: ai_security
+  refetch_interval_days: 3
+web3_core_theory:
+- name: Solidity Security Considerations
+  url: https://docs.soliditylang.org/en/latest/security-considerations.html
+  type: official_docs
+  priority: high
+  id: solidity-security-considerations
+  cadence: on_demand
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: Solidity Documentation
+  url: https://docs.soliditylang.org/en/latest/
+  type: official_docs
+  priority: high
+  id: solidity-documentation
+  cadence: on_demand
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: OWASP Smart Contract Security Verification Standard
+  url: https://scs.owasp.org/SCSVS/
+  type: official_standard
+  priority: high
+  id: owasp-smart-contract-security-verification-standard
+  cadence: on_demand
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: OWASP Smart Contract Security
+  url: https://owasp.org/www-project-smart-contract-security/
+  type: official_project
+  priority: high
+  id: owasp-smart-contract-security
+  cadence: on_demand
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: Immunefi Learn
+  url: https://immunefi.com/learn/
+  type: bounty_learning
+  priority: high
+  id: immunefi-learn
+  cadence: on_demand
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: Immunefi Severity Classification
+  url: https://immunefi.com/immunefi-vulnerability-severity-classification-system-v2-3/
+  type: severity_standard
+  priority: high
+  id: immunefi-severity-classification
+  cadence: periodic
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 90
+- name: Trail of Bits Blog
+  url: https://blog.trailofbits.com
+  type: research_blog
+  priority: high
+  id: trail-of-bits-blog
+  cadence: on_demand
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: OpenZeppelin Blog
+  url: https://blog.openzeppelin.com
+  type: research_blog
+  priority: high
+  id: openzeppelin-blog
+  cadence: on_demand
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 180
+- name: Damn Vulnerable DeFi
+  url: https://www.damnvulnerabledefi.xyz
+  type: training
+  priority: medium
+  id: damn-vulnerable-defi
+  cadence: on_demand
+  refetch_interval_days: 180
+web3_continuous_monitoring:
+- name: Rekt News
+  url: https://rekt.news
+  type: exploit_postmortem_feed
+  priority: high
+  source_quality_default: 7
+  handling: extract_incident_root_cause_and_impact_lessons
+  notes: Use for real-world exploit patterns, attacker paths, protocol failure modes, and impact realism. Do not treat Rekt
+    articles as bounty report templates by default.
+  id: rekt-news
+  cadence: daily
+  role: practitioner_commentary
+  trust: curated_secondary
+  promotion_policy: corroboration_required
+  independent_corroboration: required
+  acquisition: feed
+  refetch_interval_days: 1
+- name: Immunefi Blog
+  url: https://immunefi.com/blog/
+  type: web3_security_blog
+  priority: high
+  source_quality_default: 8
+  handling: extract_bounty_relevant_web3_security_lessons
+  notes: Use for Web3 bounty methodology, ecosystem loss data, severity context, researcher guidance, and platform-specific
+    lessons.
+  id: immunefi-blog
+  cadence: daily
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 3
+- name: Immunefi Research
+  url: https://immunefi.com/blog/research/
+  type: web3_security_research
+  priority: high
+  source_quality_default: 8
+  handling: browser_dom_required
+  notes: Browser-rendered research index exposes article URLs and excerpts; prioritize loss reports, severity/systemic-risk
+    analysis, and confirmed vulnerability statistics.
+  id: immunefi-research
+  cadence: weekly
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: Solodit by Cyfrin - Findings Filtered by Recency
+  url: https://solodit.cyfrin.io/?i=HIGH%2CMEDIUM%2CLOW%2CGAS&maxf=&minf=&rf=alltime&sd=Desc&sf=Recency
+  type: smart_contract_vulnerability_database
+  priority: high
+  source_quality_default: 8
+  handling: browser_dom_required
+  notes: Browser-rendered page exposes /issues/<slug> links and selected issue detail text; use for smart-contract vulnerability
+    pattern mining across High, Medium, Low, and Gas findings.
+  id: solodit-by-cyfrin-findings-filtered-by-recency
+  cadence: weekly
+  role: report_repository
+  trust: discovery_only
+  promotion_policy: original_source_required
+  independent_corroboration: required
+  original_source_required: true
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: Solodit by Cyfrin - Root
+  url: https://solodit.cyfrin.io/
+  type: smart_contract_vulnerability_database
+  priority: high
+  source_quality_default: 8
+  handling: browser_dom_required
+  notes: Fallback/root source. Prefer filtered recency URL for ongoing monitoring.
+  id: solodit-by-cyfrin-root
+  cadence: weekly
+  role: report_repository
+  trust: discovery_only
+  promotion_policy: original_source_required
+  independent_corroboration: required
+  original_source_required: true
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: Code4rena Reports
+  url: https://code4rena.com/reports
+  type: contest_reports
+  priority: high
+  handling: browser_dom_required
+  notes: Browser-rendered report index exposes many report links; use browser DOM extraction for curated recent reports.
+  id: code4rena-reports
+  cadence: weekly
+  role: report_repository
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: Sherlock Audits
+  url: https://audits.sherlock.xyz
+  type: contest_reports
+  priority: high
+  handling: browser_dom_required
+  notes: Browser-rendered audit list exposes contest/report links; static ingest may be low-yield.
+  id: sherlock-audits
+  cadence: weekly
+  role: report_repository
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: Sherlock Judging Guidelines
+  url: https://docs.sherlock.xyz/audits/judging/guidelines
+  type: judging_guidelines
+  priority: high
+  handling: single_page_content
+  notes: Long single-page judging reference; compile directly as reportability/severity guidance rather than link crawling.
+  id: sherlock-judging-guidelines
+  cadence: periodic
+  role: authority
+  trust: authority
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: single_page
+  refetch_interval_days: 90
+- name: Cantina Competitions
+  url: https://cantina.xyz/opportunities/ended
+  type: contest_reports
+  priority: medium
+  handling: browser_dom_required
+  notes: Browser-rendered ended opportunities page exposes competition URLs; /opportunities/competitions only shows currently
+    active competition(s).
+  id: cantina-competitions
+  cadence: weekly
+  role: report_repository
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: ChainSecurity Blog
+  url: https://www.chainsecurity.com/blog
+  type: research_blog
+  priority: medium
+  handling: browser_dom_required
+  notes: Browser triage exposes article links; use browser DOM extraction for recent posts.
+  id: chainsecurity-blog
+  cadence: weekly
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: BlockSec Blog
+  url: https://blocksec.com/blog
+  type: research_blog
+  priority: medium
+  handling: browser_dom_required
+  notes: Browser-rendered blog exposes article URLs and excerpts; prioritize Security Insights, Incident Breakdown, Technical
+    Insights, and Weekly Security Roundup.
+  id: blocksec-blog
+  cadence: weekly
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: browser_dom
+  refetch_interval_days: 7
+- name: Paradigm Research
+  url: https://www.paradigm.xyz/writing
+  type: research_blog
+  priority: medium
+  handling: browser_dom_required
+  notes: Browser-rendered writing index exposes dated article URLs; prioritize Research/Open Source/security/agent/EVM articles
+    over policy/commentary.
+  id: paradigm-research
+  cadence: weekly
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: browser_dom
+  refetch_interval_days: 7
+web2_recon_and_hunting_sources:
+- name: uphiago recon-skills
+  url: https://github.com/uphiago/recon-skills/
+  type: github_skill_repository
+  priority: high
+  cadence: on_demand
+  handling: selected_skill_review_not_raw_import
+  notes: Recon/offensive skill repository. Promote only Argus-safe methodology, evidence gates, and low-noise workflows; quarantine
+    mass-scan, evasion, destructive, credential misuse, and target-unsafe material.
+  id: uphiago-recon-skills
+  acquisition: repository
+  refetch_interval_days: 180
+- name: Critical Thinking Podcast Blog
+  url: https://blog.criticalthinkingpodcast.io
+  type: bug_bounty_research_blog
+  priority: high
+  cadence: weekly
+  handling: sitemap_and_archive_crawl_with_noise_filter
+  notes: High-volume bug bounty methodology source. Prioritize concrete technique episodes, cloud/AI posts, OAuth/MCP,
+    client-side, AEM, code-review, and workflow lessons; filter sponsor/login/archive noise.
+  id: critical-thinking-podcast-blog
+  refetch_interval_days: 7
+- name: Brutecat Articles
+  url: https://brutecat.com/articles/
+  type: security_research_articles
+  priority: high
+  cadence: on_demand
+  handling: review_before_use
+  notes: Historical security-research writeups. Confirm current scope and authorization independently; historical bugs are not
+    permission to test a present-day asset.
+  id: brutecat-articles
+  refetch_interval_days: 180
+- name: T3MP3ST
+  url: https://github.com/elder-plinius/T3MP3ST
+  type: autonomous_red_team_agent_repository
+  priority: medium
+  cadence: on_demand
+  handling: architecture_and_safety_lessons_only
+  notes: Autonomous offensive-security harness. Promote orchestration, integrity, scope/authorization, benchmark, and evidence
+    lessons; do not import exploit packs, agent prompts, or unsafe automation as Argus procedures.
+  id: t3mp3st
+  acquisition: repository
+  refetch_interval_days: 180
+- name: RedTeam.PL Safari Local File Theft
+  url: https://blog.redteam.pl/2020/08/stealing-local-files-using-safari-web.html
+  type: browser_security_research_writeup
+  priority: high
+  cadence: on_demand
+  handling: single_page_content
+  notes: Historical Safari local-file theft chain. Promote browser trust-boundary, user-interaction, origin, platform/version,
+    negative-control, and reportability lessons; do not promote weaponized exfiltration payloads.
+  id: redteam-pl-safari-local-file-theft
+  acquisition: single_page
+  refetch_interval_days: 180
+- name: GitLab Red Team Tech Notes (legacy repository)
+  url: https://gitlab.com/gitlab-com/gl-security/security-operations/redteam/redteam-public/resources/red-team-tech-notes
+  type: red_team_tech_notes_repository
+  priority: high
+  cadence: on_demand
+  handling: review methodology and defensive validation notes selectively; quarantine phishing, C2, post-exploitation, exploit
+    code, payloads, and target-specific operator material
+  id: gitlab-red-team-tech-notes-legacy-repository
+  acquisition: repository
+  refetch_interval_days: 180
+- name: GitLab Security Tech Notes - Red Team (public continuation)
+  url: https://gitlab-com.gitlab.io/gl-security/security-tech-notes/red-team-tech-notes/
+  type: red_team_tech_notes_index
+  priority: high
+  cadence: weekly
+  handling: monitor the public index; selectively review new methodology and defensive notes; quarantine phishing, C2, post-exploitation,
+    exploit code, payloads, and target-specific operator material
+  id: gitlab-security-tech-notes-red-team-public-continuation
+  refetch_interval_days: 7
+- name: Security Research YouTube Playlist PLhfP6zOcRP1f
+  url: https://www.youtube.com/playlist?list=PLhfP6zOcRP1f_FyWc_gk1fRz1mxst0QE5
+  type: youtube_security_playlist
+  priority: high
+  cadence: on_demand
+  handling: enumerate_playlist_then_fetch_transcripts
+  notes: Captured five videos on 2026-07-24. Re-enumerate through the youtube-content workflow on request; generic HTML is
+    not authoritative content. Preserve transcript language/quality and promote only scope-safe methodology.
+  id: security-research-youtube-playlist-plhfp6zocrp1f
+  acquisition: transcript
+  refetch_interval_days: 180
+- name: TechKranti MongoDB ObjectId Prediction IDOR
+  url: https://techkranti.com/idor-through-mongodb-object-ids-prediction/
+  type: access_control_security_writeup
+  priority: high
+  cadence: on_demand
+  handling: single_page_content
+  notes: Historical ObjectId prediction/IDOR writeup. Promote object-identifier misconception, authorization, temporal-information,
+    owned-object controls, and reportability lessons; do not treat predictability alone as IDOR proof.
+  id: techkranti-mongodb-objectid-prediction-idor
+  acquisition: single_page
+  refetch_interval_days: 180
+- name: CyberPanda Laravel XSS Archived Writeup
+  url: https://web.archive.org/web/20201125230905/https://cyberpanda.la/blog/xss-laravel
+  type: archived_xss_security_writeup
+  priority: high
+  cadence: on_demand
+  handling: single_page_content
+  notes: Archived Laravel XSS writeup. Promote source-context-sink, framework escaping, browser proof, false-positive, and
+    reportability lessons; do not copy payload sprays or assume historical framework behavior remains current.
+  id: cyberpanda-laravel-xss-archived-writeup
+  acquisition: single_page
+  refetch_interval_days: 180
+wordpress_official_security_intelligence:
+- name: WordPress Official Release Feed
+  url: https://wordpress.org/news/category/releases/feed/
+  type: official_security_release_feed
+  priority: high
+  cadence: daily
+  handling: promote_security_releases_with_official_advisory_and_patch_diff_validation
+  notes: Prefer WordPress.org release facts and linked GHSAs. Do not turn release notices into authorization for live CVE
+    scanning.
+  id: wordpress-official-release-feed
+  role: authority
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  acquisition: feed
+  refetch_interval_days: 1
+- name: WP2Shell Searchlight Cyber Disclosure
+  url: https://slcyber.io/research-center/wp2shell-pre-authentication-rce-in-wordpress-core
+  type: researcher_security_advisory
+  priority: high
+  cadence: weekly
+  handling: watch_for_post-embargo_technical_details_and_revalidate_against_official_wordpress_sources
+  notes: CVE-2026-63030 / CVE-2026-60137 chain. Do not submit third-party targets to the external wp2shell checker or import
+    weaponized requests into autonomous hunting.
+  id: wp2shell-searchlight-cyber-disclosure
+  role: primary_research
+  trust: primary
+  promotion_policy: review_required
+  independent_corroboration: conditional
+  refetch_interval_days: 7

@@ -1,0 +1,39 @@
+schema_version: 1
+finding_id: "<PROGRAM-ID-NNN>"
+generated_utc: "<ISO-8601>"
+raw_evidence_root: "<private 0700 path>"
+sanitary_evidence_root: "<report/upload path>"
+artifacts:
+  - id: "E01"
+    path: "<relative path>"
+    role: positive # positive | negative_control | request | response | transcript | screenshot | video | script | manifest
+    captured_utc: "<ISO-8601>"
+    source_or_target_state: "<commit/version/account/object state>"
+    actor: "<redacted actor/account label>"
+    object: "<owned/synthetic/redacted object label>"
+    acquisition: "<method>"
+    sha256: "<digest>"
+    bytes: 0
+    sanitization:
+      status: sanitized # raw_private | sanitized | not_required
+      tool_and_version: "<tool>"
+      removed: []
+      residual_scan: pass
+    cleanup_or_restoration:
+      required: false
+      status: not_applicable # not_applicable | completed | prohibited | pending
+      evidence_ref: null
+assertions:
+  - id: "A01"
+    statement: "<machine-checkable factual claim>"
+    supporting_artifacts: ["E01"]
+private_raw_retention:
+  reason: "<necessary or none>"
+  permissions: "0600 files / 0700 directory"
+  expiry_or_review: "<date/policy>"
+verification:
+  every_report_reference_exists: false
+  hashes_verified: false
+  secret_scan_passed: false
+  pii_minimized: false
+  package_integrity_passed: false

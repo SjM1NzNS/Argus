@@ -1,0 +1,29 @@
+schema_version: 1
+chain_id: "<CHAIN-NNN>"
+title: "<source capability to demonstrated end state>"
+actor_continuity: "<same actor/access across all edges>"
+edges:
+  - id: "C1"
+    precondition: "<required state>"
+    input: "<demonstrated input>"
+    operation: "<exact operation>"
+    output_or_capability: "<observed output>"
+    evidence_refs: []
+    user_interaction: "none"
+    environment_or_configuration_dependency: []
+    standalone_impact: "<impact of this edge alone>"
+    unproven_assumptions: []
+    output_satisfies_next_input: false
+chain_result:
+  demonstrated_end_state: "<fact>"
+  conditional_end_states: []
+  missing_edges: []
+  strongest_supported_impact: "<bounded impact fact>"
+  not_claimed: []
+  viable: false
+verification:
+  temporal_compatibility: false
+  actor_and_access_continuity: false
+  evidence_for_every_edge: false
+  no_hidden_credential_or_interaction_gap: false
+  cleanup_verified: false

@@ -1,0 +1,66 @@
+# Public-safe Hermes cron templates for Argus learning maintenance.
+#
+# This is a declarative template, not Hermes' live jobs.json format and not an
+# automatic import file. Substitute ARGUS_VAULT with the absolute path to this
+# repository's vault/ directory when creating each job. Intentionally omitted:
+# job IDs, delivery targets, provider/model pins, run history, and user paths.
+
+schema_version: 1
+kind: hermes-cron-template
+variables:
+  ARGUS_VAULT: "<ABSOLUTE_PATH_TO_REPOSITORY>/vault"
+
+jobs:
+  - name: "Daily Argus lightweight learning promotion"
+    schedule: "0 9 * * 0,1,3-6"
+    repeat: forever
+    workdir: "${ARGUS_VAULT}"
+    skills:
+      - argus-securityresearch-workflows
+      - argus-vault-routing
+      - obsidian
+    enabled_toolsets:
+      - file
+      - terminal
+      - skills
+    prompt: |
+      Run the bounded daily Argus learning review and promotion workflow in the
+      configured vault. Read and follow AGENTS.md plus the learning architecture
+      and promotion policy before making changes. Execute
+      `bash "11 - Scripts/learning/run_daily_incremental_learning.sh"`, inspect
+      the generated reconciliation, compiler, digest, and ready-review outputs,
+      and promote only source-backed, reusable class-level knowledge that passes
+      the documented review gates. Keep ingestion and promotion distinct. Do not
+      start or continue hunts, access private target material, invent missing
+      evidence, promote unresolved proposals, or include secrets, account data,
+      raw evidence, reports, logs, or target-specific content. Validate changed
+      links and files, report exact coverage and any blockers, and leave the run
+      fail-closed when required inputs or review gates are incomplete.
+
+  - name: "Weekly Argus deep learning promotion"
+    schedule: "45 8 * * 2"
+    repeat: forever
+    workdir: "${ARGUS_VAULT}"
+    skills:
+      - argus-securityresearch-workflows
+      - argus-vault-routing
+      - obsidian
+    enabled_toolsets:
+      - file
+      - terminal
+      - skills
+    prompt: |
+      Run the comprehensive weekly Argus learning reconciliation and promotion
+      workflow in the configured vault. Read and follow AGENTS.md plus the
+      learning architecture, source-quality, and promotion policies. Execute
+      `bash "11 - Scripts/learning/run_weekly_learning_reconciliation.sh"`, then
+      inspect acquisition coverage, source health, reconciliation, compiler,
+      digest, and ready-review outputs. Promote only independently supported,
+      reusable class-level knowledge that passes the documented review and
+      adversarial-validation gates; preserve provenance and proposal-only
+      boundaries. Do not start or continue hunts, access private target material,
+      invent missing evidence, promote unresolved proposals, or include secrets,
+      account data, raw evidence, reports, logs, or target-specific content.
+      Validate changed links, indexes, playbooks, evals, and skill references;
+      report exact coverage and blockers; and fail closed on incomplete inputs or
+      unmet review gates.
