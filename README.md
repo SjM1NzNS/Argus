@@ -150,7 +150,7 @@ The numbered vault layout intentionally leaves gaps. Private runtime zones are e
 ### 1. Clone
 
 ```bash
-git clone <YOUR-GITHUB-REPOSITORY-URL> argus-framework
+git clone https://github.com/SjM1NzNS/Argus.git argus-framework
 cd argus-framework
 ```
 
