@@ -1,4 +1,4 @@
-# Argus Security Research Framework — Public Backup
+# Argus Security Research Framework
 
 Argus is an authorization-first security-research command center built from three cooperating layers:
 
