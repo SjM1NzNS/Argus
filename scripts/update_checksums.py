@@ -5,7 +5,10 @@ import argparse
 import hashlib
 from pathlib import Path
 
-EXCLUDED = {"CHECKSUMS.sha256"}
+# README.md is intentionally mutable on GitHub and remains covered by the
+# public-release content scanner. Excluding it here prevents documentation-only
+# edits from invalidating the integrity manifest for the packaged artifacts.
+EXCLUDED = {"CHECKSUMS.sha256", "README.md"}
 
 
 def digest(path: Path) -> str:
@@ -19,9 +22,10 @@ def digest(path: Path) -> str:
 def rendered(root: Path) -> str:
     rows = []
     for path in sorted(root.rglob("*")):
-        if not path.is_file() or ".git" in path.parts or path.name in EXCLUDED:
+        relative = path.relative_to(root).as_posix()
+        if not path.is_file() or ".git" in path.parts or relative in EXCLUDED:
             continue
-        rows.append(f"{digest(path)}  {path.relative_to(root).as_posix()}")
+        rows.append(f"{digest(path)}  {relative}")
     return "\n".join(rows) + "\n"
 
 
